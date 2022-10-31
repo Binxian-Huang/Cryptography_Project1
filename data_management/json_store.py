@@ -1,7 +1,7 @@
 """Class for managing storage in JSON files"""
-import hashlib
 import json
 import os
+from data_management.exception_management import ProgramException
 
 class JsonStore():
     """Class for managing storage in JSON files"""
@@ -20,16 +20,15 @@ class JsonStore():
             # file is not found, so init my data_list
             self._data_list = []
         except json.JSONDecodeError as exception_raised:
-            raise ExceptionMessages("JSON Decode Error - Wrong JSON Format") \
-                from exception_raised
+            raise ProgramException("JSON Decode Error - Wrong JSON Format") from exception_raised
 
     def save( self ):
         """Saves the datalist in the JSON file"""
         try:
             with open(self._FILE_PATH, "w", encoding="utf-8", newline="") as file:
                 json.dump(self._data_list, file, indent=2)
-        except FileNotFoundError as exc:
-            raise ExceptionMessages("Wrong file or file path") from exc
+        except FileNotFoundError as exception_raised:
+            raise ProgramException("Wrong file or file path") from exception_raised
 
     def add_item( self, item ):
         """Adds a new item to the datalist and updates the JSON file"""
