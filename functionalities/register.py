@@ -36,15 +36,15 @@ class Register:
         iv = os.urandom(16)
         cipher = Cipher(algorithms.AES256(self.__key), modes.CBC(iv))
         encryptor = cipher.encryptor()
-        #padder = padding.PKCS7(128).padder()
-        #padded_data = padder.update(value) + padder.finalize()
-        result = encryptor.update(value) + encryptor.finalize()
-        mydict[key] = result
-        mydict["iv"] = iv
+        padder = padding.PKCS7(128).padder()
+        padded_data = padder.update(b"value") + padder.finalize()
+        result = encryptor.update(padded_data) + encryptor.finalize()
+        mydict[key] = str(result)
+        mydict["iv"] = str(iv)
         json.add_item(mydict)
 
     def save_key(self):
         json = JsonStore
         mydict = {}
-        mydict["key"] = self.__key
+        mydict["key"] = str(self.__key)
         json.add_item(mydict)
