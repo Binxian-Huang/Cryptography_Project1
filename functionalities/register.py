@@ -44,7 +44,7 @@ class Register:
         json.add_item(mydict)
 
     def save_key(self):
-        json = JsonStore
+        json = JsonStore()
         mydict = {}
         mydict["key"] = str(self.__key)
         json.add_item(mydict)
