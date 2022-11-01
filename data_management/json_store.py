@@ -1,11 +1,12 @@
 """Class for managing storage in JSON files"""
 import json
 import os
+from pathlib import Path
 from data_management.exception_management import ProgramException
 
 class JsonStore():
     """Class for managing storage in JSON files"""
-    _FILE_PATH = ""
+    _FILE_PATH = str(Path.home()) + "/Uc3m/Curso3/Criptografia/Practica1/data_management/data_json/"
     _ID_FIELD = ""
     _data_list = []
     def __init__( self ):
@@ -33,7 +34,7 @@ class JsonStore():
     def add_item( self, item ):
         """Adds a new item to the datalist and updates the JSON file"""
         self.load()
-        self._data_list.append(item.__dict__)
+        self._data_list.append(item)
         self.save()
 
     def find_item( self, key_value, key=None):
