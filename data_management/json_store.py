@@ -6,7 +6,7 @@ from data_management.exception_management import ProgramException
 
 class JsonStore():
     """Class for managing storage in JSON files"""
-    _FILE_PATH = "D:/Julio/Uc3m/Curso3/Criptografia/Practica1/data_management/data_json/user_data.json"
+    _FILE_PATH = "D:/Julio/Uc3m/Curso 3/Cuatrimestre 1/Criptografia/Practica1/data_management/data_json/user_data.json"
     _ID_FIELD = ""
     _data_list = []
     def __init__( self ):
@@ -37,14 +37,12 @@ class JsonStore():
         self._data_list.append(item)
         self.save()
 
-    def find_item( self, key_value, key=None):
+    def find_item( self, key_value):
         """Finds the first item with the key_value in the datalist"""
         self.load()
-        if key is None:
-            key = self._ID_FIELD
         for item in self._data_list:
-            if item[key] == key_value:
-                return item
+            if item.get(key_value) != None:
+                return item.get(key_value)
         return None
 
     def find_items_list (self, key_value, key=None):

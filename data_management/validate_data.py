@@ -27,7 +27,7 @@ def validate_age(age):
     if match:
         return True
     else:
-        print("Fecha introducida inválida.")
+        print("Fecha introducida inválida. Formato dd/mm/yyyy.")
         return False
 
 def validate_phone(phone):
@@ -47,5 +47,5 @@ def validate_id(id):
     if match:
         return True
     else:
-        print("Documento de identidad introducid inválido.")
+        print("Documento de identidad introducido inválido.")
         return False

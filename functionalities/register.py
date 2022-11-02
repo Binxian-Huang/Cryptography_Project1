@@ -1,8 +1,9 @@
 import os
+import base64
 from data_management.json_store import JsonStore
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 from cryptography.hazmat.primitives import padding
-
+from cryptography.hazmat.primitives import hashes
 
 class Register:
 
@@ -17,6 +18,10 @@ class Register:
     def cypher_user(self):
         key = "usuario"
         self.cypher_values(key, self.__user)
+
+    def hash_accesskey(self):
+        key = "contrasena"
+        self.hash_values(key, self.__accesskey)
 
     def cypher_age(self):
         key = "fecha_nacimiento"
@@ -34,17 +39,31 @@ class Register:
         json = JsonStore()
         mydict = {}
         iv = os.urandom(16)
+        bytes = value.encode()
         cipher = Cipher(algorithms.AES256(self.__key), modes.CBC(iv))
         encryptor = cipher.encryptor()
         padder = padding.PKCS7(128).padder()
-        padded_data = padder.update(b"value") + padder.finalize()
+        padded_data = padder.update(bytes) + padder.finalize()
         result = encryptor.update(padded_data) + encryptor.finalize()
-        mydict[key] = str(result)
-        mydict["iv"] = str(iv)
+        encoded_result = base64.b64encode(result)
+        encoded_iv = base64.b64encode(iv)
+        mydict[key] = encoded_result.decode("ascii")
+        mydict["iv_"+key] = encoded_iv.decode("ascii")
+        json.add_item(mydict)
+
+    def hash_values(self, key, value):
+        json = JsonStore()
+        mydict = {}
+        bytes = value.encode()
+        hash_value = hashes.Hash(hashes.SHA256())
+        hash_value.update(bytes)
+        encoded = base64.b64encode(hash_value.finalize())
+        mydict[key] = encoded.decode("ascii")
         json.add_item(mydict)
 
     def save_key(self):
         json = JsonStore()
         mydict = {}
-        mydict["key"] = str(self.__key)
+        encoded = base64.b64encode(self.__key)
+        mydict["key"] = encoded.decode("ascii")
         json.add_item(mydict)

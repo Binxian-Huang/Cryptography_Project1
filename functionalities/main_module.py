@@ -1,6 +1,9 @@
 """Modulo principal"""
+
 import data_management.validate_data
 from functionalities.register import Register
+from functionalities.login import Login
+from data_management.json_store import JsonStore
 
 def validate_register():
 
@@ -36,28 +39,49 @@ def validate_register():
 
     return register_user, register_accesskey, register_age, register_phone, register_id
 
+def register_user():
+    data_validated = validate_register()
+    data_register = Register(data_validated[0], data_validated[1], data_validated[2], data_validated[3],
+                             data_validated[4])
+    data_register.cypher_user()
+    data_register.hash_accesskey()
+    data_register.cypher_age()
+    data_register.cypher_phone()
+    data_register.cypher_id()
+    data_register.save_key()
+    print("Usuario registrado correctamente.")
+
+def login_user():
+    print("Para iniciar sesión introduzca usuario y contraseña.")
+    user = input("Introduzca el usuario: ")
+    accesskey = input("Introduzca la contraseña: ")
+    login = Login(user, accesskey)
+    result = login.validate_values()
+    if result:
+        print("Inicio de sesión correcto.")
+    else:
+        print("Usuario o contraseña incorrecto.")
+
 def my_program():
     print("Hola bienvenido a la aplicación MyVirtualBank.")
     print("Para usar la aplicación debe ser miembro de nuestro banco.")
     login = False
     while not login:
-        member = input("¿Tiene una cuenta creada?(y/n): ")
+        member = input("¿Tiene una cuenta creada?(y/n): ").lower()
         if member == "y":
-            user = input("Introduzca el usuario: ")
-            password = input("Introduzca la contraseña: ")
+            login_user()
             login = True
         elif member == "n":
-            register = input("¿Quiere crear una cuenta?(y/n): ")
+            register = input("¿Quiere crear una cuenta?(y/n): ").lower()
             if register == "y":
-                data_validated = validate_register()
-                data_register = Register(data_validated[0], data_validated[1], data_validated[2], data_validated[3], data_validated[4])
-                data_register.cypher_user()
-                data_register.cypher_age()
-                data_register.cypher_phone()
-                data_register.cypher_id()
-                data_register.save_key()
+                json = JsonStore()
+                json.empty_json_file()
+                register_user()
                 login = True
-            elif register != "n":
+            elif register == "n":
+                print("Fin de programa.")
+                exit()
+            else:
                 print("Valor introducido incorrecto.")
         else:
             print("Valor introducido incorrecto.")
