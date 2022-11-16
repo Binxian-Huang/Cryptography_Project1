@@ -91,11 +91,19 @@ def my_program():
     print("-Para mostrar información de la cuenta, introduzca 1")
     print("-Para depositar dinero en tu cuenta, introduzca 2")
     print("-Para salir del programa, introduzca exit\n")
-    oper=input("¿Qué desea realizar?:").lower()
-    if oper=="1": #Mostrar información de la cuenta
-        print("Mostrando informacion")
-    if oper=="2": #Depositar dinero
-        print("Depositando dinero")
-    if oper=="exit":
-        print("Fin de programa. ¡Hasta la próxima!")
-        exit()
+    exit_program = False #Variable para controlar cuando salir del sistema
+    while not exit_program:
+        oper = input("¿Qué desea realizar?:").lower()
+        if oper=="1": #Mostrar información de la cuenta
+            print("Función para mostrar la información")
+        elif oper=="2": #Depositar dinero
+            print("Función para depositar el dinero")
+        elif oper=="exit":
+            exit_program= True #Salimos del bucle
+        else:
+            print("Operación invalida, recuerda:")
+            print("-Para mostrar información de la cuenta, introduzca 1")
+            print("-Para depositar dinero en tu cuenta, introduzca 2")
+            print("-Para salir del programa, introduzca exit\n")
+    print("Fin de programa. ¡Hasta la próxima!")
+    exit()
