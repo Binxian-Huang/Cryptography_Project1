@@ -52,36 +52,50 @@ def register_user():
     print("Usuario registrado correctamente.")
 
 def login_user():
-    print("Para iniciar sesión introduzca usuario y contraseña.")
+    print("Para iniciar sesión introduzca usuario y contraseña.\n")
     user = input("Introduzca el usuario: ")
     accesskey = input("Introduzca la contraseña: ")
     login = Login(user, accesskey)
     result = login.validate_values()
     if result:
-        print("Inicio de sesión correcto.")
+        print("Inicio de sesión correcto.\n")
     else:
         print("Usuario o contraseña incorrecto.")
 
 def my_program():
-    print("Hola bienvenido a la aplicación MyVirtualBank.")
-    print("Para usar la aplicación debe ser miembro de nuestro banco.")
-    login = False
+    print("Hola bienvenido a la aplicación MyVirtualBank.\n")
+    print("Para usar la aplicación debe ser miembro de nuestro banco.\n")
+    login = False #Variable para controlar el login
     while not login:
-        member = input("¿Tiene una cuenta creada?(y/n): ").lower()
-        if member == "y":
+        member = input("¿Tiene una cuenta creada?(y/n): \n").lower()
+        if member == "y":#Iniciar sesión
             login_user()
             login = True
-        elif member == "n":
-            register = input("¿Quiere crear una cuenta?(y/n): ").lower()
+        elif member == "n":#Registro del usuario
+            register = input("¿Quiere crear una cuenta?(y/n): \n").lower()
             if register == "y":
                 json = JsonStore()
                 json.empty_json_file()
                 register_user()
-                login = True
-            elif register == "n":
+                login = True #Nos hemos registrado, variable "login" cambia
+            elif register == "n": #No queremos crear ninguna cuenta. Se cierra el programa
                 print("Fin de programa.")
                 exit()
             else:
                 print("Valor introducido incorrecto.")
         else:
             print("Valor introducido incorrecto.")
+    #login = True
+    print("Bienvenido a MyVirtualBank\n")
+    print("A continuación, le mostramos las posibles operaciones a realizar:")
+    print("-Para mostrar información de la cuenta, introduzca 1")
+    print("-Para depositar dinero en tu cuenta, introduzca 2")
+    print("-Para salir del programa, introduzca exit\n")
+    oper=input("¿Qué desea realizar?:").lower()
+    if oper=="1": #Mostrar información de la cuenta
+        print("Mostrando informacion")
+    if oper=="2": #Depositar dinero
+        print("Depositando dinero")
+    if oper=="exit":
+        print("Fin de programa. ¡Hasta la próxima!")
+        exit()

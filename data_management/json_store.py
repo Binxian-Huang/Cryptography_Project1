@@ -6,7 +6,9 @@ from data_management.exception_management import ProgramException
 
 class JsonStore():
     """Class for managing storage in JSON files"""
-    _FILE_PATH = "D:/Julio/Uc3m/Curso 3/Cuatrimestre 1/Criptografia/Practica1/data_management/data_json/user_data.json"
+    #FilePath Julio: "D:/Julio/Uc3m/Curso 3/Cuatrimestre 1/Criptografia/Practica1/data_management/data_json/user_data.json"
+    #FilePath Álvaro: "C:/Users/alvar/PycharmProjects/Practica1_Criptografia/data_management/data_json/user_data.json"
+    _FILE_PATH = "C:/Users/alvar/PycharmProjects/Practica1_Criptografia/data_management/data_json/user_data.json"
     _ID_FIELD = ""
     _data_list = []
     def __init__( self ):
