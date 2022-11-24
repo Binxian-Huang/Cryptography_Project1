@@ -43,26 +43,30 @@ def validate_register():
 def register_user():
     data_validated = validate_register()
     data_register = Register(data_validated[0], data_validated[1], data_validated[2], data_validated[3],
-                             data_validated[4], 0)
+                             data_validated[4], "0")
     data_register.cypher_user()
-    data_register.hash_accesskey()
+    data_register.derivation_accesskey()
     data_register.cypher_age()
     data_register.cypher_phone()
     data_register.cypher_id()
     data_register.cypher_money()
-    data_register.save_key()
+    data_register.save_salt()
+#    data_register.save_key()
     print("Usuario registrado correctamente.")
 
 def login_user():
     print("Para iniciar sesión introduzca usuario y contraseña.\n")
-    user = input("Introduzca el usuario: ")
-    accesskey = input("Introduzca la contraseña: ")
-    login = Login(user, accesskey)
-    result = login.validate_values()
-    if result:
-        print("Inicio de sesión correcto.\n")
-    else:
-        print("Usuario o contraseña incorrecto.")
+    access = False
+    while not access:
+        user = input("Introduzca el usuario: ")
+        accesskey = input("Introduzca la contraseña: ")
+        login = Login(user, accesskey)
+        result = login.validate_values()
+        if result:
+            print("Inicio de sesión correcto.\n")
+            access = True
+        else:
+            print("Usuario o contraseña incorrecto.")
 
 def my_program():
     print("Hola bienvenido a la aplicación MyVirtualBank.\n")
@@ -71,8 +75,8 @@ def my_program():
     while not login:
         member = input("¿Tiene una cuenta creada?(y/n): \n").lower()
         if member == "y":#Iniciar sesión
-            login_user()
-            login = True
+             login_user()
+             login = True
         elif member == "n":#Registro del usuario
             register = input("¿Quiere crear una cuenta?(y/n): \n").lower()
             if register == "y":

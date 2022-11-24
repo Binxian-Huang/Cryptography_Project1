@@ -1,23 +1,23 @@
 import re
 
 def validate_user(user):
-    pattern = r"[a-zA-Z0-9]{4,10}"
+    pattern = r"^([A-Za-z]|[0-9]){4,16}"
     user_pattern = re.compile(pattern)
     match = user_pattern.fullmatch(user)
     if match:
         return True
     else:
-        print("Usuario inválido. Puede contener letras mayúsculas, minúsculas y números con una longitud entre 4 y 10.")
+        print("Usuario inválido. Puede contener cualquier caracter no especial con una longitud entre 4 y 16.")
         return False
 
 def validate_accesskey(accesskey):
-    pattern = r"[0-9]{8}"
+    pattern = r"^[A-Z]{1}([A-Za-z]|[0-9]){3,11}"
     password_pattern = re.compile(pattern)
     match = password_pattern.fullmatch(accesskey)
     if match:
         return True
     else:
-        print("Clave inválida. Tienen que ser 8 dígitos.")
+        print("Clave inválida. Debe empezar por una mayúscula seguido de cualquier caracter no especial con una longitud entre 4 y 12.")
         return False
 
 def validate_age(age):

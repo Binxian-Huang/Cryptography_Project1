@@ -1,24 +1,28 @@
 [
   {
-    "usuario": "k+x+/KTEOY/1Z1j/xK+utQ==",
-    "iv_usuario": "YTIMy5DQqMln3mBIj0ljsg=="
+    "usuario": "D3xUUv+a3b+o1N1/ZaVMdw==",
+    "iv_usuario": "r252Q2qQxEi5Yg3wgRnMcw=="
   },
   {
-    "contrasena": "3Z/jJ90qZL2A+YvjNkMj72pghkJ/m5i1oRCc9CpwqZE="
+    "contrasena": "gBOPLShlb8GhzpwHXWrviPuYZBRCJ/24MRtP7A3l8I0="
   },
   {
-    "fecha_nacimiento": "3zuGYY5zWhy2GQ+UHe3Qxw==",
-    "iv_fecha_nacimiento": "raOK75PTa8t03rJJOcZgpA=="
+    "fecha_nacimiento": "Ssu7ma6QeWliO1rA7WTDwg==",
+    "iv_fecha_nacimiento": "lHafCdntBopJgnvCJgBlxw=="
   },
   {
-    "telefono": "+pMF9xqBrleZwe6z5dOe7Q==",
-    "iv_telefono": "qmrqLFkgou6yZT22P7F5kw=="
+    "telefono": "D392+eSAVAEurddsyDjn6w==",
+    "iv_telefono": "cHpQ/AIMuuwrm3UHyJPzzw=="
   },
   {
-    "usuario": "gBlKw5wdKKi++mb7ilQxVg==",
-    "iv_usuario": "0c9rtl3OAIKh5hawqXrlTQ=="
+    "usuario": "lwfi7JmQNAUPHSpRPMXg2w==",
+    "iv_usuario": "08RefhsUY3ooWqvIs4epsw=="
   },
   {
-    "key": "Cin70Eq+D212jkCKYAqdd7G63D6iwbL0wioIWkUnUKQ="
+    "money": "xAbr17aCJCsf4cqUYW3RNw==",
+    "iv_money": "XCO5iALCAUWgtbrjElLwJw=="
+  },
+  {
+    "salt": "azsl109zXyooMP0dELAwHQ=="
   }
 ]
