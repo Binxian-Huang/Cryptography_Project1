@@ -5,7 +5,7 @@ class ShowInfo:
 
     def __init__(self):
         self.__iban = self.generateIban() #Número IBAN de la cuenta
-        self.__money = 0 #Dinero de la cuenta
+        #self.__money = 0 #Dinero de la cuenta
 
     def generateIban(self):#IBAN aleatorio
         numeros=["0","1","2","3","4","5","6","7","8","9"]
@@ -25,16 +25,12 @@ class ShowInfo:
     def show_iban(self):
         print("IBAN de la cuenta: ", self.__iban)
 
-    #Mostrar dinero de la cuenta
-    def show_money(self):
-        print("Dinero de la cuenta: ", self.__money)
 
     #Funcion principal qque llamará a todas las anteriores
     def show_information(self):
         #Función principal de la clase
         self.show_register()
         self.show_iban()
-        self.show_money()
 
 
 

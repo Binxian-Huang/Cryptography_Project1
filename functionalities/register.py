@@ -7,12 +7,13 @@ from cryptography.hazmat.primitives import hashes
 
 class Register:
 
-    def __init__(self, user, accesskey, age, phone, id):
+    def __init__(self, user, accesskey, age, phone, id, money):
         self.__user = user
         self.__accesskey = accesskey
         self.__age = age
         self.__phone = phone
         self.__id = id
+        self.__money= money
         self.__key = os.urandom(32)
    #Devolver datos para la opcion de mostrar Información
     def show_inf_user(self):
@@ -23,7 +24,8 @@ class Register:
         return self.__phone
     def show_inf_id(self):
         return self.__id
-
+    def return_money(self):
+        return self.__money
     #Cifrado del campo "usuario"
     def cypher_user(self):
         key = "usuario"
@@ -44,6 +46,9 @@ class Register:
     def cypher_id(self):
         key = "usuario"
         self.cypher_values(key, self.__id)
+    #Cifrado del dinero de la cuenta
+    def cypher_money(self):
+        self.cypher_values(key, self.__money)
 
     #Funcion principal para cifrar los campos del usuario
     def cypher_values(self, key, value):
