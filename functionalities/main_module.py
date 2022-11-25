@@ -5,6 +5,7 @@ from functionalities.register import Register
 from functionalities.login import Login
 from data_management.json_store import JsonStore
 from functionalities.operation_money import OPMoney
+from functionalities.show_info import ShowInfo
 
 def validate_register():
 
@@ -43,7 +44,7 @@ def validate_register():
 def register_user():
     data_validated = validate_register()
     data_register = Register(data_validated[0], data_validated[1], data_validated[2], data_validated[3],
-                             data_validated[4], "0")
+                             data_validated[4], "0", Register.generateIban())
     data_register.cypher_user()
     data_register.derivation_accesskey()
     data_register.cypher_age()
@@ -98,7 +99,7 @@ def my_program():
         messages_oper()
         oper = input("¿Qué desea realizar?: ").lower()
         if oper == "1": #Mostrar información de la cuenta
-            print("Función para mostrar la información")
+            ShowInfo.show_info()
         elif oper == "2": #Depositar o extraer dinero
             home = False
             while not home:

@@ -8,15 +8,23 @@ from cryptography.hazmat.primitives.kdf.scrypt import Scrypt
 
 class Register:
 
-    def __init__(self, user, accesskey, age, phone, id, money):
+    def __init__(self, user, accesskey, age, phone, id, money, iban):
         self.__user = user
         self.__accesskey = accesskey
         self.__age = age
         self.__phone = phone
         self.__id = id
         self.__money = money
+        self.__iban = iban
         self.__salt = os.urandom(16)
         self.__key = self.get_key()
+
+    def generateIban(self):#IBAN aleatorio
+        numeros=["0","1","2","3","4","5","6","7","8","9"]
+        iban_gen="ES"
+        for i in range(22):
+            iban_gen = iban_gen + random.choice(numeros)
+        return iban_gen
 
    #Devolver datos para la opcion de mostrar Información
     def show_inf_user(self):
@@ -27,8 +35,10 @@ class Register:
         return self.__phone
     def show_inf_id(self):
         return self.__id
-    def return_money(self):
+    def show_money(self):
         return self.__money
+    def show_iban(self):
+        return self.__iban
 
     #Cifrado del campo "usuario"
     def cypher_user(self):

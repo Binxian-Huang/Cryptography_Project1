@@ -2,35 +2,15 @@ from .register import Register
 import random
 
 class ShowInfo:
-
-    def __init__(self):
-        self.__iban = self.generateIban() #Número IBAN de la cuenta
-        #self.__money = 0 #Dinero de la cuenta
-
-    def generateIban(self):#IBAN aleatorio
-        numeros=["0","1","2","3","4","5","6","7","8","9"]
-        iban_gen="ES"
-        for i in range(22):
-            iban_gen = iban_gen + random.choice(numeros)
-        return iban_gen
-    #Mostrar la informacion de la clase Registro
-    def show_register(self):
-        #Nombre usuario, fecha de nacimiento, número de teléfono y DNI
-        print("Nombre del usuario: ",Register.show_inf_user())
-        print("Fecha de nacimiento: ",Register.show_inf_age())
+    def show_info():
+        print("Monstrando información del usuario:\n")
+        print("Nombre: ",Register.show_inf_user())
+        print("Documento de identidad: ",Register.show_inf_id())
+        print("Fecha de nacimiento",Register.show_inf_age())
         print("Número de teléfono: ",Register.show_inf_phone())
-        print("Documento de identificación: ",Register.show_inf_id())
+        print("Dinero de la cuenta",Register.show_money())
+        print("IBAN cuenta MyVirtualBank",Register.show_iban())
 
-    #Mostrar IBAN de la cuenta
-    def show_iban(self):
-        print("IBAN de la cuenta: ", self.__iban)
-
-
-    #Funcion principal qque llamará a todas las anteriores
-    def show_information(self):
-        #Función principal de la clase
-        self.show_register()
-        self.show_iban()
 
 
 
