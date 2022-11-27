@@ -5,6 +5,7 @@ from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 from cryptography.hazmat.primitives import padding
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.kdf.scrypt import Scrypt
+import random
 
 class Register:
 
@@ -64,6 +65,9 @@ class Register:
     def cypher_money(self):
         key = "money"
         self.cypher_values(key, self.__money)
+    def cypher_IBAN(self):
+        key = "iban"
+        self.cypher_values(key, self.__iban)
 
     #Funcion principal para cifrar los campos del usuario
     def cypher_values(self, key, value):
