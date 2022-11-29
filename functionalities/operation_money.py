@@ -1,4 +1,3 @@
-from register import Register
 class OPMoney:
 
     def __init__(self, money):

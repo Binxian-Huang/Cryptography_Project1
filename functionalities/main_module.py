@@ -44,16 +44,9 @@ def validate_register():
 def register_user():
     data_validated = validate_register()
     data_register = Register(data_validated[0], data_validated[1], data_validated[2], data_validated[3],
-                             data_validated[4], "0", Register.generateIban())
-    data_register.cypher_user()
-    data_register.derivation_accesskey()
-    data_register.cypher_age()
-    data_register.cypher_phone()
-    data_register.cypher_id()
-    data_register.cypher_money()
-    data_register.cypher_IBAN()
-    data_register.save_salt()
-    print("Usuario registrado correctamente.")
+                             data_validated[4])
+    data_register.cypher_values()
+    print("Usuario registrado correctamente.\n")
 
 def login_user():
     print("Para iniciar sesión introduzca usuario y contraseña.\n")
@@ -67,71 +60,70 @@ def login_user():
             print("Inicio de sesión correcto.\n")
             access = True
         else:
-            print("Usuario o contraseña incorrecto.")
+            print("Usuario o contraseña incorrecto.\n")
 
 def my_program():
-    print("Hola bienvenido a la aplicación MyVirtualBank.\n")
+    print("Hola bienvenido a la aplicación MyVirtualBank.")
     print("Para usar la aplicación debe ser miembro de nuestro banco.\n")
     login = False #Variable para controlar el login
     while not login:
-        member = input("¿Tiene una cuenta creada?(y/n): \n").lower()
+        member = input("¿Tiene una cuenta creada?(y/n): ").lower()
         if member == "y":#Iniciar sesión
              login_user()
              login = True
         elif member == "n":#Registro del usuario
-            register = input("¿Quiere crear una cuenta?(y/n): \n").lower()
+            register = input("¿Quiere crear una cuenta?(y/n): ").lower()
             if register == "y":
                 json = JsonStore()
                 json.empty_json_file()
+                print()
                 register_user()
                 login = True #Nos hemos registrado, variable "login" cambia
             elif register == "n": #No queremos crear ninguna cuenta. Se cierra el programa
                 print("Fin de programa.")
                 exit()
             else:
-                print("Valor introducido incorrecto.")
+                print("Valor introducido incorrecto.\n")
         else:
-            print("Valor introducido incorrecto.")
+            print("Valor introducido incorrecto.\n")
+
     #login = True
-    print("Bienvenido a MyVirtualBank\n")
-    print("A continuación, le mostramos las posibles operaciones a realizar:")
+    print("Bienvenido a MyVirtualBank.")
+    print("A continuación, le mostramos las posibles operaciones a realizar: \n")
     exit_program = False #Variable para controlar cuando salir del sistema
     while not exit_program:
         messages_oper()
         oper = input("¿Qué desea realizar?: ").lower()
-        if oper == "info": #Usuario elige mostrar información de la cuenta
-            ShowInfo.show_info()
-        elif oper == "money": #Usuario elige depositar/extraer dinero
-            home = False
-            while not home: #Variable para controlar cuando salir del bucle de las operaciones del dinero y volver atrás
-                messages_money()
-                op_mon = input("¿Que operación desea realizar?\n").lower()
-                if op_mon == "extraer": #Usuario elige extraer dinero
-                    money_ext = input("¿Cuánto dinero desea extraer?")
-                    OPMoney.extraer_dinero(money_ext)
-                elif op_mon == "introducir": #Usuario elige introducir dinero
-                    money_int = input("¿Cuánto dinero desea introducir?")
-                    OPMoney.introducir_dinero(money_int)
-                elif op_mon == "volver": #Usuario quiere volver atrás (Elección entre mostrar info, operacionees dinero y exit)
-                    home = True
+        if oper == "information": #Usuario elige mostrar información de la cuenta
+            print("Para acceder a la información personal se necesita verificación de la identidad.")
+            verified = False
+            while not verified:
+                access = input("Introduzca la contraseña: ")
+                information = ShowInfo(access)
+                if information.validate_accesskey() == True:
+                    print("Identidad verificada.")
+                    information.show_info()
+                    verified = True
                 else:
-                    print("Operación inválida.\n")
+                    print("Contraseña incorrecta.")
+        elif oper == "withdraw": #Usuario elige depositar/extraer dinero
+            pass
+
+        elif oper == "deposit":
+            pass
+
         elif oper == "exit": #Usuario quiere salir del programa
             exit_program = True #Salimos del bucle
         else:
             #Ninguna de las operaciones anteriores, mensaje para el usuario
             print("Operación inválida.\n")
-    print("Fin de programa. ¡Hasta la próxima!")
+    print("Fin de programa. ¡Hasta la próxima!\n")
     exit()
 
 #Mensajes del programa
 def messages_oper(): #Mostrar información de las funcionalidades
-    print("-Para mostrar información de la cuenta, introduzca 'info'.\n")
-    print("-Para extraer/depositar dinero en tu cuenta, introduzca 'money'.\n")
+    print("-Para mostrar información de la cuenta, introduzca 'information'.\n")
+    print("-Para extraer dinero de tu cuenta, introduzca 'withdraw'.\n")
+    print("-Para depositar dinero en tu cuenta, introduzca 'deposit'.\n")
     print("-Para salir del programa, introduzca 'exit'.\n")
-
-def messages_money(): #Mostrar información de las operaciones con el dinero
-    print("-Para extraer dinero, introduzca 'extraer'.")
-    print("-Para introducir dinero, introduzca 'introducir'.")
-    print("-Para volver a la opción anterior, introduzca 'volver'.")
 

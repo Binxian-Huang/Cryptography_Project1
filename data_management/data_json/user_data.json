@@ -1,28 +1,32 @@
 [
   {
-    "usuario": "D3xUUv+a3b+o1N1/ZaVMdw==",
-    "iv_usuario": "r252Q2qQxEi5Yg3wgRnMcw=="
+    "iban": "Ct4dOuZl22q5F+T1WC4u2yPmPNQ5Lj+KG2vOiexTJmA=",
+    "iv_iban": "fGimIWOLgOS+64LTSv1F3g=="
   },
   {
-    "contrasena": "gBOPLShlb8GhzpwHXWrviPuYZBRCJ/24MRtP7A3l8I0="
+    "usuario": "F6LUz9tptGH0gdvDsiSUsg==",
+    "iv_usuario": "4bc/K8DxTeuqYV6NOzfZqg=="
   },
   {
-    "fecha_nacimiento": "Ssu7ma6QeWliO1rA7WTDwg==",
-    "iv_fecha_nacimiento": "lHafCdntBopJgnvCJgBlxw=="
+    "contrasena": "MBkxkJsldQ0Ln1xxti8+wnc1g99mFf7ES112WSpY3aI="
   },
   {
-    "telefono": "D392+eSAVAEurddsyDjn6w==",
-    "iv_telefono": "cHpQ/AIMuuwrm3UHyJPzzw=="
+    "fecha_nacimiento": "gq3CS5in6dOE4lFqTCpmgg==",
+    "iv_fecha_nacimiento": "PiIohNBw48n7SI6VYB14jg=="
   },
   {
-    "usuario": "lwfi7JmQNAUPHSpRPMXg2w==",
-    "iv_usuario": "08RefhsUY3ooWqvIs4epsw=="
+    "telefono": "RZb3qTLLvDHMXR+r1s84+g==",
+    "iv_telefono": "Q/accMS4zHWI91cfh4JoWA=="
   },
   {
-    "money": "xAbr17aCJCsf4cqUYW3RNw==",
-    "iv_money": "XCO5iALCAUWgtbrjElLwJw=="
+    "id": "p9Vriye9kGhk2nvWUjehiw==",
+    "iv_id": "8qGnqt3wqAtfgVdueNRgHg=="
   },
   {
-    "salt": "azsl109zXyooMP0dELAwHQ=="
+    "saldo": "Ei/5sApAwz8s7Um2KAmDbQ==",
+    "iv_saldo": "WKPlr809QRPoQ2IJn/M9wA=="
+  },
+  {
+    "salt": "JsQMP7hivFbN7xCnM3xlSA=="
   }
 ]
