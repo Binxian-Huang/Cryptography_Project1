@@ -1,28 +1,36 @@
 
-import os
 import base64
 from data_management.json_store import JsonStore
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 from cryptography.hazmat.primitives import padding
-from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.kdf.scrypt import Scrypt
-import random
+
+
 class Security:
 
     def __init__(self, accesskey):
         self.__accesskey = accesskey
         self.__key = self.get_key()
+        self.__salt = self.decoded_value("salt")
 
     def get_key(self):
         key_padder = padding.PKCS7(256).padder()
         key = key_padder.update(self.__accesskey.encode()) + key_padder.finalize()
         return key
 
-    #Funcion principal para cifrar los campos del usuario
+    def validate_accesskey(self):
+        kdf = Scrypt(salt=self.__salt, length=32, n=2 ** 14, r=8, p=1)
+        derivated_accesskey = self.decoded_value("contrasena")
+        try:
+            kdf.verify(self.__accesskey.encode(), derivated_accesskey)
+            return True
+        except:
+            return False
+
+    # Funcion principal para cifrar los campos del usuario
     def encode_value(self, key, value, iv):
         json = JsonStore()
         mydict = {}
-        #iv = os.urandom(16)
         bytes = value.encode()
         cipher = Cipher(algorithms.AES256(self.__key), modes.CBC(iv))
         encryptor = cipher.encryptor()
@@ -35,7 +43,8 @@ class Security:
         mydict["iv_"+key] = encoded_iv.decode("ascii")
         json.add_item(mydict)
 
-    def find_in_json(self, key):
+    @staticmethod
+    def find_in_json(key):
         json = JsonStore()
         value = json.find_item(key)
         return value

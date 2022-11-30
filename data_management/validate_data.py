@@ -1,4 +1,6 @@
+
 import re
+
 
 def validate_user(user):
     pattern = r"^([A-Za-z]|[0-9]){4,16}"
@@ -10,6 +12,7 @@ def validate_user(user):
         print("Usuario inválido. Puede contener cualquier caracter no especial con una longitud entre 4 y 16.")
         return False
 
+
 def validate_accesskey(accesskey):
     pattern = r"^[A-Z]{1}([A-Za-z]|[0-9]){3,11}"
     password_pattern = re.compile(pattern)
@@ -19,6 +22,7 @@ def validate_accesskey(accesskey):
     else:
         print("Clave inválida. Debe empezar por una mayúscula seguido de cualquier caracter no especial con una longitud entre 4 y 12.")
         return False
+
 
 def validate_age(age):
     pattern = r"^([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})$"
@@ -30,6 +34,7 @@ def validate_age(age):
         print("Fecha introducida inválida. Formato dd/mm/yyyy.")
         return False
 
+
 def validate_phone(phone):
     pattern = r"^[0-9]{9}"
     phone_pattern = re.compile(pattern)
@@ -39,6 +44,7 @@ def validate_phone(phone):
     else:
         print("Teléfono introducido inválido.")
         return False
+
 
 def validate_id(id):
     pattern = r"^(\d{8})([A-Z])$"

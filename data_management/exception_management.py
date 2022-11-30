@@ -1,6 +1,7 @@
 
 """Exception for the program"""
 
+
 class ProgramException(Exception):
     """Personalised exception for the program"""
     def __init__(self, message):
@@ -13,5 +14,5 @@ class ProgramException(Exception):
         return self.__message
 
     @message.setter
-    def message(self,value):
+    def message(self, value):
         self.__message = value

@@ -1,6 +1,6 @@
 
-from functionalities.cypher import Security
-from cryptography.hazmat.primitives.kdf.scrypt import Scrypt
+from data_management.cypher import Security
+
 
 class Login:
 
@@ -32,18 +32,13 @@ class Login:
 
     # Función que comprueba que la contraseña introducida y aplicado al salt coincide con la guardada
     def validate_accesskey(self):
-        kdf = Scrypt(salt=self.__salt, length=32, n=2 ** 14, r=8, p=1)
-        derivated_accesskey = self.get_value("contrasena")
-        try:
-            kdf.verify(self.__accesskey.encode(), derivated_accesskey)
-            return True
-        except:
-            return False
+        security = Security(self.__accesskey)
+        return security.validate_accesskey()
 
-    #~Función que comprueba que ambos valores usuario y contraseña coinciden
+    # Función que comprueba que ambos valores usuario y contraseña coinciden
     def validate_values(self):
         validated_accesskey = self.validate_accesskey()
         if validated_accesskey:
-             return self.validate_user()
+            return self.validate_user()
         else:
             return False

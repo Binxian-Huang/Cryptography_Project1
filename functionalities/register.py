@@ -2,14 +2,15 @@
 import os
 import base64
 from data_management.json_store import JsonStore
-from functionalities.cypher import Security
+from data_management.cypher import Security
 from cryptography.hazmat.primitives.kdf.scrypt import Scrypt
 import random
 
+
 class Register:
 
-    def __init__(self, user, accesskey, age, phone, id, ):
-        self.__iban = self.generateIban()
+    def __init__(self, user, accesskey, age, phone, id):
+        self.__iban = self.generate_iban()
         self.__user = user
         self.__accesskey = accesskey
         self.__age = age
@@ -19,9 +20,10 @@ class Register:
         self.__salt = os.urandom(16)
 
     # Función que genera un IBAN aleatorio
-    def generateIban(self):
-        numeros=["0","1","2","3","4","5","6","7","8","9"]
-        iban_gen="ES"
+    @staticmethod
+    def generate_iban():
+        numeros = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+        iban_gen = "ES"
         for i in range(22):
             iban_gen = iban_gen + random.choice(numeros)
         return iban_gen

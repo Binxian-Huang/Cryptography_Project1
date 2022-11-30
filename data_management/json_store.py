@@ -1,20 +1,20 @@
 """Class for managing storage in JSON files"""
 import json
-import os
-from pathlib import Path
 from data_management.exception_management import ProgramException
 
-class JsonStore():
+
+class JsonStore:
     """Class for managing storage in JSON files"""
-    #FilePath Julio: "D:/Julio/Uc3m/Curso 3/Cuatrimestre 1/Criptografia/Practica1/data_management/data_json/user_data.json"
-    #FilePath Álvaro: "C:/Users/alvar/PycharmProjects/Practica1_Criptografia/data_management/data_json/user_data.json"
+    # FilePath Julio: "D:/Julio/Uc3m/Curso 3/Cuatrimestre 1/Criptografia/Practica1/data_management/data_json/user_data.json"
+    # FilePath Álvaro: "C:/Users/alvar/PycharmProjects/Practica1_Criptografia/data_management/data_json/user_data.json"
     _FILE_PATH = "D:/Julio/Uc3m/Curso3/Criptografia/Practica1/data_management/data_json/user_data.json"
     _ID_FIELD = ""
     _data_list = []
-    def __init__( self ):
+
+    def __init__(self):
         pass
 
-    def load( self ):
+    def load(self):
         """Loading data into the datalist"""
         try:
             with open(self._FILE_PATH, "r", encoding="utf-8", newline="") as file:
@@ -25,7 +25,7 @@ class JsonStore():
         except json.JSONDecodeError as exception_raised:
             raise ProgramException("JSON Decode Error - Wrong JSON Format") from exception_raised
 
-    def save( self ):
+    def save(self):
         """Saves the datalist in the JSON file"""
         try:
             with open(self._FILE_PATH, "w", encoding="utf-8", newline="") as file:
@@ -33,13 +33,13 @@ class JsonStore():
         except FileNotFoundError as exception_raised:
             raise ProgramException("Wrong file or file path") from exception_raised
 
-    def add_item( self, item ):
+    def add_item(self, item):
         """Adds a new item to the datalist and updates the JSON file"""
         self.load()
         self._data_list.append(item)
         self.save()
 
-    def find_item( self, key_value):
+    def find_item(self, key_value):
         """Finds the first item with the key_value in the datalist"""
         self.load()
         for item in self._data_list:
@@ -47,23 +47,7 @@ class JsonStore():
                 return item.get(key_value)
         return None
 
-    def find_items_list (self, key_value, key=None):
-        """Finds all the items with the key_value in the datalist"""
-        self.load()
-        if key is None:
-            key = self._ID_FIELD
-        data_list_result = []
-        for item in self._data_list:
-            if item[key] == key_value:
-                data_list_result.append(item)
-        return data_list_result
-
-    def delete_json_file( self ):
-        """delete the json file"""
-        if os.path.isfile(self._FILE_PATH):
-            os.remove(self._FILE_PATH)
-
-    def empty_json_file( self ):
+    def empty_json_file(self):
         """removes all data from the json file"""
         self._data_list = []
         self.save()
