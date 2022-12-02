@@ -7,6 +7,7 @@ from functionalities.login import Login
 from data_management.json_store import JsonStore
 from functionalities.show_info import ShowInfo
 from functionalities.money import Money
+from data_management.manage_key import Key
 
 
 # Función que valida los valores de entrada para registro de usuario
@@ -141,7 +142,8 @@ def my_program():
                                     money = Money(value, access)
                                     checked_money = money.check_money()     # Verificar que dinero a extraer sea natural mayor que 0 y menor que saldo disponible en cuenta
                                     if checked_money:
-                                        print("Money correcto.")
+                                        print("Realizando operación.")
+                                        money.deposit_money()
                                         amount = True
                                     else:
                                         amount = False
@@ -173,7 +175,8 @@ def my_program():
                                 money = Money(value, access)
                                 checked_money = money.check_money()
                                 if checked_money:
-                                    print("Money correcto.")
+                                    print("Realizando operación.")
+                                    money.deposit_money()
                                     amount = True
                                 else:
                                     amount = False
