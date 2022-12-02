@@ -21,7 +21,7 @@ class ShowInfo:
         return self.get_value(iv_value, value)
 
     def show_info(self):
-        print("Monstrando información del usuario:")
+        print("Mostrando información del usuario:")
         print("IBAN cuenta MyVirtualBank:", self.__iban)
         print("Nombre de usuario:", self.__user)
         print("Fecha de nacimiento:", self.__age)

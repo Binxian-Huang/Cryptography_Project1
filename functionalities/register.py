@@ -51,22 +51,22 @@ class Register:
         security = Security(self.__accesskey)
         key = "iban"
         iv = os.urandom(16)
-        security.encode_value(key, self.__iban, iv)        # Cifrado y almacenamiento de IBAN
+        security.save_in_user_data(key, self.__iban, iv)        # Cifrado y almacenamiento de IBAN
         key = "usuario"
         iv = os.urandom(16)
-        security.encode_value(key, self.__user, iv)        # Cifrado y almacenamiento de usuario
+        security.save_in_user_data(key, self.__user, iv)        # Cifrado y almacenamiento de usuario
         key = "contrasena"
         self.derivation_value(key, self.__accesskey)    # Derivación y almacenamiento de contraseña con salt
         key = "fecha_nacimiento"
         iv = os.urandom(16)
-        security.encode_value(key, self.__age, iv)         # Cifrado y almacenamiento de fecha de nacimiento
+        security.save_in_user_data(key, self.__age, iv)         # Cifrado y almacenamiento de fecha de nacimiento
         key = "telefono"
         iv = os.urandom(16)
-        security.encode_value(key, self.__phone, iv)       # Cifrado y almacenamiento de número de teléfono
+        security.save_in_user_data(key, self.__phone, iv)       # Cifrado y almacenamiento de número de teléfono
         key = "id"
         iv = os.urandom(16)
-        security.encode_value(key, self.__id, iv)          # Cifrado y almacenamiento de documento de identificación
+        security.save_in_user_data(key, self.__id, iv)          # Cifrado y almacenamiento de documento de identificación
         key = "saldo"
         iv = os.urandom(16)
-        security.encode_value(key, self.__money, iv)       # Cifrado y almacenamiento de dinero de la cuenta
+        security.save_in_user_data(key, self.__money, iv)       # Cifrado y almacenamiento de dinero de la cuenta
         self.save_salt()                                # Almacenamiento de salt de contraseña

@@ -39,11 +39,23 @@ class JsonStore:
         self._data_list.append(item)
         self.save()
 
+    def update_item(self, new_elem):
+        self.load()
+        new_data_list = []
+        for elem in self._data_list:
+            if elem.keys() != new_elem.keys():
+                #res = {k: new_elem.get(k, v) for k, v in elem.items()}
+                new_data_list.append(elem)
+            else:
+                new_data_list.append(new_elem)
+        self.save()
+
+
     def find_item(self, key_value):
         """Finds the first item with the key_value in the datalist"""
         self.load()
         for item in self._data_list:
-            if item.get(key_value) is None:
+            if item.get(key_value) is not None:
                 return item.get(key_value)
         return None
 

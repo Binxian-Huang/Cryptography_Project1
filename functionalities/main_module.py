@@ -5,8 +5,10 @@ from data_management.cypher import Security
 from functionalities.register import Register
 from functionalities.login import Login
 from data_management.json_store import JsonStore
+from data_management.json_store_signature import SignatureStore
 from functionalities.show_info import ShowInfo
 from functionalities.money import Money
+from data_management.manage_key import Key
 
 
 # Función que valida los valores de entrada para registro de usuario
@@ -51,6 +53,8 @@ def register_user():
     data_register = Register(data_validated[0], data_validated[1], data_validated[2], data_validated[3],
                              data_validated[4])
     data_register.cypher_values()
+    key = Key(data_validated[1])
+    key.generate_save_key()
     print("Usuario registrado correctamente.\n")
 
 
@@ -85,6 +89,8 @@ def my_program():
             if register == "y":     # Registro
                 json = JsonStore()
                 json.empty_json_file()
+                signature_json = SignatureStore()
+                signature_json.empty_json_file()
                 print()
                 register_user()
                 login = True    # Fin de registro, salir del bucle
@@ -139,7 +145,7 @@ def my_program():
                                 try:
                                     value = int(input("Introduzca la cantidad a extraer: "))
                                     money = Money(value, access)
-                                    checked_money = money.check_money()     # Verificar que dinero a extraer sea natural mayor que 0 y menor que saldo disponible en cuenta
+                                    checked_money = money.check_money_withdraw()  # Verificar que dinero a extraer sea natural mayor que 0 y menor que saldo disponible en cuenta
                                     if checked_money:
                                         print("Realizando operación.")
                                         money.deposit_money()
@@ -148,6 +154,8 @@ def my_program():
                                         amount = False
                                 except ValueError:
                                     print("Valor introducido incorrecto. Debe ser un número positivo mayor que 0.\n")
+
+
                             verified = True
                         else:
                             print("No tiene saldo disponible en tu cuenta.\n")
@@ -172,15 +180,15 @@ def my_program():
                             try:
                                 value = int(input("Introduzca la cantidad a ingresar: "))
                                 money = Money(value, access)
-                                checked_money = money.check_money()
+                                checked_money = money.check_money_deposit()
                                 if checked_money:
-                                    print("Realizando operación.")
+                                    print("Realizando operación.\n")
                                     money.deposit_money()
                                     amount = True
                                 else:
                                     amount = False
                             except ValueError:
-                                print("Valor introducido incorrecto. Debe ser un número positivo mayor que 0.\n")
+                                print("Valor introducido incorrecto. Debe ser un número positivo.AAAAAAAAAAAA\n")
                         verified = True
                     else:
                         print("Contraseña incorrecta.\n")

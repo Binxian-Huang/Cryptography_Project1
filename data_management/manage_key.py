@@ -16,16 +16,15 @@ class Key:
         security = Security(self.__accesskey)
         private_key = rsa.generate_private_key(public_exponent=65537, key_size=2048)
         pem = private_key.private_bytes(encoding=serialization.Encoding.PEM, format=serialization.PrivateFormat.PKCS8, encryption_algorithm=serialization.BestAvailableEncryption(security.get_key()))
-        try:
-            with open("D:/Julio/Uc3m/Curso3/Criptografia/Practica1/data_management/private_key.pem", "w+b") as file:
-                file.write(pem)
-        except FileNotFoundError as exception_raised:
-            raise ProgramException("Wrong file or file path") from exception_raised
+        with open("D:/Julio/Uc3m/Curso3/Criptografia/Practica1/data_management/private_key.pem", "w+b") as file:
+            file.write(pem)
 
     def load_key(self):
+        security = Security(self.__accesskey)
+        key_password = security.get_key()
         try:
             with open("D:/Julio/Uc3m/Curso3/Criptografia/Practica1/data_management/private_key.pem", "rb") as file:
-                private_key = serialization.load_pem_private_key(file.read(), password=self.__accesskey)
+                private_key = serialization.load_pem_private_key(file.read(), password=key_password)
                 return private_key
         except FileNotFoundError as exception_raised:
             raise ProgramException("Wrong file or file path") from exception_raised

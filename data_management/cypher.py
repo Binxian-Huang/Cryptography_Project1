@@ -13,25 +13,32 @@ class Security:
     def __init__(self, accesskey):
         self.__accesskey = accesskey
         self.__key = self.get_key()
-        self.__salt = self.decoded_value("salt")
 
     def get_key(self):
         key_padder = padding.PKCS7(256).padder()
         key = key_padder.update(self.__accesskey.encode()) + key_padder.finalize()
         return key
 
+    def get_salt(self):
+        return self.decoded_value("salt")
+
     def validate_accesskey(self):
-        kdf = Scrypt(salt=self.__salt, length=32, n=2 ** 14, r=8, p=1)
+        salt = self.get_salt()
+        kdf = Scrypt(salt=salt, length=32, n=2 ** 14, r=8, p=1)
         derivated_accesskey = self.decoded_value("contrasena")
         try:
             kdf.verify(self.__accesskey.encode(), derivated_accesskey)
             return True
-        except AlreadyFinalized or InvalidKey:
+        except Exception:
             return False
 
     # Funcion principal para cifrar los campos del usuario
-    def encode_value(self, key, value, iv):
+    def save_in_user_data(self, key, value, iv):
         json = JsonStore()
+        mydict = self.encode_value(iv, key, value)
+        json.add_item(mydict)
+
+    def encode_value(self, iv, key, value):
         mydict = {}
         value_bytes = value.encode()
         cipher = Cipher(algorithms.AES256(self.__key), modes.CBC(iv))
@@ -42,8 +49,8 @@ class Security:
         encoded_result = base64.b64encode(result)
         encoded_iv = base64.b64encode(iv)
         mydict[key] = encoded_result.decode("ascii")
-        mydict["iv_"+key] = encoded_iv.decode("ascii")
-        json.add_item(mydict)
+        mydict["iv_" + key] = encoded_iv.decode("ascii")
+        return mydict
 
     @staticmethod
     def find_in_json(key):
