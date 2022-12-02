@@ -2,6 +2,7 @@
 from data_management.cypher import Security
 from data_management.manage_key import Key
 
+
 class Money:
 
     def __init__(self, money, accesskey):
@@ -55,13 +56,13 @@ class Money:
 
     def signature_verification(self, message):
         key = Key(self.__accesskey)
-        signature = key.signing(message)
+        signature = key.signing(message.encode())
         print("La firma de la operación es: " + signature)
         verify = False
         while not verify:
             option = input("Para verificar la firma teclee 'verify': ")
             if option == "verify":
-                verification = key.verify(signature, message)
+                verification = key.verify(signature, message.encode())
             else:
                 print("Opción incorrecta.\n")
 

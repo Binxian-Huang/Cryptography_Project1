@@ -43,7 +43,7 @@ class JsonStore:
         """Finds the first item with the key_value in the datalist"""
         self.load()
         for item in self._data_list:
-            if item.get(key_value) != None:
+            if item.get(key_value) is None:
                 return item.get(key_value)
         return None
 

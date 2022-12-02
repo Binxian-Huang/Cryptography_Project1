@@ -7,43 +7,42 @@ from functionalities.login import Login
 from data_management.json_store import JsonStore
 from functionalities.show_info import ShowInfo
 from functionalities.money import Money
-from data_management.manage_key import Key
 
 
 # Función que valida los valores de entrada para registro de usuario
 def validate_register():
 
-    register_user = ""
+    user = ""
     validated = False
     while not validated:
-        register_user = input("Introduzca un nombre de usuario: ")
-        validated = data_management.validate_data.validate_user(register_user)
+        user = input("Introduzca un nombre de usuario: ")
+        validated = data_management.validate_data.validate_user(user)
 
-    register_accesskey = ""
+    accesskey = ""
     validated = False
     while not validated:
-        register_accesskey = input("Introduca una clave de acceso: ")
-        validated = data_management.validate_data.validate_accesskey(register_accesskey)
+        accesskey = input("Introduca una clave de acceso: ")
+        validated = data_management.validate_data.validate_accesskey(accesskey)
 
-    register_age = ""
+    age = ""
     validated = False
     while not validated:
-        register_age = input("Introduzca fecha de nacimiento(dd/mm/yyyy): ")
-        validated = data_management.validate_data.validate_age(register_age)
+        age = input("Introduzca fecha de nacimiento(dd/mm/yyyy): ")
+        validated = data_management.validate_data.validate_age(age)
 
-    register_phone = ""
+    phone = ""
     validated = False
     while not validated:
-        register_phone = input("Introduzca un número de teléfono: ")
-        validated = data_management.validate_data.validate_phone(register_phone)
+        phone = input("Introduzca un número de teléfono: ")
+        validated = data_management.validate_data.validate_phone(phone)
 
-    register_id = ""
+    identification = ""
     validated = False
     while not validated:
-        register_id = input("Introduca un documento de identificación(dni/nie): ")
-        validated = data_management.validate_data.validate_id(register_id)
+        identification = input("Introduca un documento de identificación(dni/nie): ")
+        validated = data_management.validate_data.validate_id(identification)
 
-    return register_user, register_accesskey, register_age, register_phone, register_id
+    return user, accesskey, age, phone, identification
 
 
 # Función que realiza el registro

@@ -4,6 +4,8 @@ from data_management.json_store import JsonStore
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 from cryptography.hazmat.primitives import padding
 from cryptography.hazmat.primitives.kdf.scrypt import Scrypt
+from cryptography.exceptions import AlreadyFinalized
+from cryptography.exceptions import InvalidKey
 
 
 class Security:
@@ -24,18 +26,18 @@ class Security:
         try:
             kdf.verify(self.__accesskey.encode(), derivated_accesskey)
             return True
-        except:
+        except AlreadyFinalized or InvalidKey:
             return False
 
     # Funcion principal para cifrar los campos del usuario
     def encode_value(self, key, value, iv):
         json = JsonStore()
         mydict = {}
-        bytes = value.encode()
+        value_bytes = value.encode()
         cipher = Cipher(algorithms.AES256(self.__key), modes.CBC(iv))
         encryptor = cipher.encryptor()
         data_padder = padding.PKCS7(128).padder()
-        padded_data = data_padder.update(bytes) + data_padder.finalize()
+        padded_data = data_padder.update(value_bytes) + data_padder.finalize()
         result = encryptor.update(padded_data) + encryptor.finalize()
         encoded_result = base64.b64encode(result)
         encoded_iv = base64.b64encode(iv)
