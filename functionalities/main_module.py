@@ -54,7 +54,7 @@ def register_user():
                              data_validated[4])
     data_register.cypher_values()
     key = Key(data_validated[1])
-    key.generate_save_key()
+    key.generate_save_key()     # Se genera una clave privada para el sistema sólo si se reliza un registro de usuario nuevo
     print("Usuario registrado correctamente.\n")
 
 
@@ -88,9 +88,9 @@ def my_program():
             register = input("¿Quiere crear una cuenta?(y/n): ").lower()
             if register == "y":     # Registro
                 json = JsonStore()
-                json.empty_json_file()
+                json.empty_json_file()  # Cuando se hece registro de nuevo usuario se eliminan los datos del usuario anterior
                 signature_json = SignatureStore()
-                signature_json.empty_json_file()
+                signature_json.empty_json_file()    # Tambiñen se eliminan las firmas de las operaciones
                 print()
                 register_user()
                 login = True    # Fin de registro, salir del bucle
@@ -126,6 +126,7 @@ def my_program():
                     else:
                         print("Contraseña incorrecta.\n")
                 else:
+                    print()
                     verified = True
 
         # Usuario elige extraer dinero
@@ -139,23 +140,21 @@ def my_program():
                     if security.validate_accesskey():   # Comprobar contraseña
                         print("Identidad verificada.\n")
                         account_money = security.decode_value("iv_saldo", "saldo")
-                        if int(account_money.decode()) != 0:    # Comprobar que haya saldo disponible en la cuenta(no sea 0). Recién registrado siempre es 0 por lo que no se puede extraer dinero antes de haber hecho un ingreso
+                        if int(account_money.decode()) != 0:    # Comprobar que haya saldo disponible en la cuenta(no sea 0). Recién registrado siempre es 0 por lo que no se puede extraer dinero antes de haber hecho un ingreso.
                             amount = False
                             while not amount:
                                 try:
                                     value = int(input("Introduzca la cantidad a extraer: "))
                                     money = Money(value, access)
-                                    checked_money = money.check_money_withdraw()  # Verificar que dinero a extraer sea natural mayor que 0 y menor que saldo disponible en cuenta
+                                    checked_money = money.check_money_withdraw()  # Verificar que dinero a extraer sea natural mayor que 0, menor que saldo disponible en cuenta y menor que máx por operación(2000).
                                     if checked_money:
-                                        print("Realizando operación.")
-                                        money.deposit_money()
+                                        print("Realizando operación.\n")
+                                        money.withdraw_money()  # Se realiza la extracción de la cantidad
                                         amount = True
                                     else:
                                         amount = False
                                 except ValueError:
                                     print("Valor introducido incorrecto. Debe ser un número positivo mayor que 0.\n")
-
-
                             verified = True
                         else:
                             print("No tiene saldo disponible en tu cuenta.\n")
@@ -163,6 +162,7 @@ def my_program():
                     else:
                         print("Contraseña incorrecta.\n")
                 else:
+                    print()
                     verified = True
 
         # Usuario elige ingresar dinero
@@ -180,19 +180,20 @@ def my_program():
                             try:
                                 value = int(input("Introduzca la cantidad a ingresar: "))
                                 money = Money(value, access)
-                                checked_money = money.check_money_deposit()
+                                checked_money = money.check_money_deposit()     # Verificar que dinero a extraer sea natural mayor que 0 y menor que máx por operación(2000).
                                 if checked_money:
                                     print("Realizando operación.\n")
-                                    money.deposit_money()
+                                    money.deposit_money()       # Realizar la operación de ingreso
                                     amount = True
                                 else:
                                     amount = False
                             except ValueError:
-                                print("Valor introducido incorrecto. Debe ser un número positivo.AAAAAAAAAAAA\n")
+                                print("Valor introducido incorrecto. Debe ser un número positivo.\n")
                         verified = True
                     else:
                         print("Contraseña incorrecta.\n")
                 else:
+                    print()
                     verified = True
 
         # Salir del programa

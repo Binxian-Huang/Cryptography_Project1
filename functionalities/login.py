@@ -1,3 +1,4 @@
+"""Clase Login con todas las funciones del inicio de sesión"""
 
 from data_management.cypher import Security
 

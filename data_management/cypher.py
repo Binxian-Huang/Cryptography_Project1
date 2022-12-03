@@ -1,11 +1,11 @@
+"""Clase Security con todas la funciones de cifrado y descifrado"""
+
 
 import base64
 from data_management.json_store import JsonStore
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 from cryptography.hazmat.primitives import padding
 from cryptography.hazmat.primitives.kdf.scrypt import Scrypt
-from cryptography.exceptions import AlreadyFinalized
-from cryptography.exceptions import InvalidKey
 
 
 class Security:
@@ -14,14 +14,17 @@ class Security:
         self.__accesskey = accesskey
         self.__key = self.get_key()
 
+    # Función que obtiene la clave de cifrado y descifrado
     def get_key(self):
         key_padder = padding.PKCS7(256).padder()
         key = key_padder.update(self.__accesskey.encode()) + key_padder.finalize()
         return key
 
+    # Función que obtiene el salt del archivo json
     def get_salt(self):
         return self.decoded_value("salt")
 
+    # Función que verifica la contraseña con el salt
     def validate_accesskey(self):
         salt = self.get_salt()
         kdf = Scrypt(salt=salt, length=32, n=2 ** 14, r=8, p=1)
@@ -32,12 +35,13 @@ class Security:
         except Exception:
             return False
 
-    # Funcion principal para cifrar los campos del usuario
+    # Funcion que cifra los campos del usuario y los guarda
     def save_in_user_data(self, key, value, iv):
         json = JsonStore()
         mydict = self.encode_value(iv, key, value)
         json.add_item(mydict)
 
+    # Función que encripta un valor con un vector de inicialización
     def encode_value(self, iv, key, value):
         mydict = {}
         value_bytes = value.encode()
@@ -52,16 +56,19 @@ class Security:
         mydict["iv_" + key] = encoded_iv.decode("ascii")
         return mydict
 
+    # Función que busca un valor en el json
     @staticmethod
     def find_in_json(key):
         json = JsonStore()
         value = json.find_item(key)
         return value
 
+    # Función que decodifica el valor guardado en el json en base64
     def decoded_value(self, key):
         value = self.find_in_json(key)
         return base64.b64decode(value)
 
+    # Función que desencripta un valor con el vector de inicialización correspondiente
     def decode_value(self, iv_key, key):
         iv = self.decoded_value(iv_key)
         cipher = Cipher(algorithms.AES256(self.__key), modes.CBC(iv))

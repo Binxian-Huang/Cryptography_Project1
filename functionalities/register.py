@@ -1,3 +1,4 @@
+"""CLase Register con todas las funciones que realizan el registro"""
 
 import os
 import base64

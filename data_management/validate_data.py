@@ -1,3 +1,4 @@
+"""Funciones que validan los datos de registro del usuario"""
 
 import re
 

@@ -1,3 +1,4 @@
+"""Clase ShowInfo con todas las funciones que muestran la información del usuario"""
 
 from data_management.cypher import Security
 
